@@ -50,7 +50,7 @@ function mudarCores(cor) {
 
 // Configurar event listeners nos botões de cor (apenas uma vez)
 botoesCores.forEach((botao) => {
-    botao.addEventListener('click', function() {
+    botao.addEventListener('click', function () {
         if (botao.style.backgroundColor === corEscolhida) {
             certoErrado.textContent = 'CORRETA!';
             header.style.backgroundColor = corEscolhida;
@@ -64,7 +64,7 @@ botoesCores.forEach((botao) => {
 
 // Configurar event listeners nos botões de modo
 modoBotoes.forEach(botao => {
-    botao.addEventListener('click', function() {
+    botao.addEventListener('click', function () {
         modoBotoes.forEach(btn => btn.classList.remove('selected'));
         botao.classList.add('selected');
         numCores = parseInt(botao.getAttribute('data-num'));
@@ -75,10 +75,13 @@ modoBotoes.forEach(botao => {
 // Configurar o botão de jogar novamente
 jogarNovamenteBtn.addEventListener('click', iniciarJogo);
 
-// Iniciar o jogo pela primeira vez com o modo fácil selecionado
-modoBotoes.forEach(botao => {
-    if (botao.textContent === 'FÁCIL') {
-        botao.classList.add('selected');
-    }
+// Iniciar o jogo com o modo fácil selecionado
+document.addEventListener('DOMContentLoaded', function () {
+    modoBotoes.forEach(botao => {
+        if (botao.textContent === 'FÁCIL') {
+            botao.classList.add('selected');
+            numCores = parseInt(botao.getAttribute('data-num'));
+        }
+    });
+    iniciarJogo();
 });
-iniciarJogo();
