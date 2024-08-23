@@ -1,56 +1,84 @@
-let arrayCores = [ 
-    { r: 255, g: 0, b: 0 },    // Vermelho
-    { r: 0, g: 255, b: 0 },    // Verde
-    { r: 0, g: 0, b: 255 },    // Azul
-    { r: 255, g: 255, b: 0 },  // Amarelo
-    { r: 255, g: 165, b: 0 },  //Laranja
-    { r: 172, g: 4, b: 205 },   // Roxo escuro
-    { r: 75, g: 0, b: 130 },    // Índigo
-    { r: 127, g: 255, b: 212 }, // Água-marinha
-    { r: 255, g: 20, b: 147 },  // Rosa-choque
-    { r: 128, g: 0, b: 0 } 
-]
+let header = document.querySelector('header');
+let coresContainer = document.querySelector('.cores');
+let corDisplay = document.querySelector('.cor');
+let certoErrado = document.querySelector('.certo-errado');
+let jogarNovamenteBtn = document.querySelector('.jogar-novamente');
+let modoBotoes = document.querySelectorAll('.modo');
+let botoesCores = document.querySelectorAll('.cores button');
+let numCores = 3; // Defina o padrão para o modo fácil
+let corEscolhida;
 
-let cor = document.querySelector('.cor');
-let certoErrado = document.querySelector('.certo-eraado');
-let cores = document.querySelector('.cores');
-let jogarNovamente = document.querySelector('jogar-novamente');
-
+// Função para gerar uma cor aleatória
 function gerarCorAleatoria() {
-    let corAleatoria = arrayCores[Math.floor(Math.random() * arrayCores.length)];
-    return `rgb(${corAleatoria.r}, ${corAleatoria.g}, ${corAleatoria.b})`;
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
 }
 
-function configurarCores (){
-    let botoes = cores.querySelector('button');
-    botoes.forEach((botao) => {
-        let corBotao = gerarCorAleatoria;
+// Função para iniciar o jogo
+function iniciarJogo() {
+    // Limpar estado anterior
+    certoErrado.textContent = '';
+    header.style.backgroundColor = ''; // Reinicia a cor do header para o padrão
 
-        botao.addEventListener('click', function() {
-            if (botao.style.backgroundColor === cor.textContent) {
-                certoErrado.textContent = "Correta!";
-            } else {
-                certoErrado.textContent = "Errada!";
-            }
-        });
+    // Gerar cores aleatórias e escolher uma delas
+    let cores = [];
+    for (let i = 0; i < numCores; i++) {
+        cores[i] = gerarCorAleatoria();
+    }
+    corEscolhida = cores[Math.floor(Math.random() * numCores)];
+    corDisplay.textContent = corEscolhida.toUpperCase();
+
+    // Configurar botões de cores
+    botoesCores.forEach((botao, i) => {
+        if (i < numCores) {
+            botao.style.display = 'block';
+            botao.style.backgroundColor = cores[i];
+        } else {
+            botao.style.display = 'none';
+        }
     });
 }
 
-function escolherCorCerta (){
-    let corCerta = gerarCorAleatoria();
-    cor.textContent = corCerta
-    header.style.backgroundColor = certa;
+// Função para mudar todas as cores dos botões para a cor escolhida
+function mudarCores(cor) {
+    botoesCores.forEach(botao => {
+        botao.style.backgroundColor = cor;
+    });
 }
 
-function reiniciarJogo() {
-    certoErrado.textContent = "";
-    configurarCores();
-    escolherCorCerta();
-}
+// Configurar event listeners nos botões de cor (apenas uma vez)
+botoesCores.forEach((botao) => {
+    botao.addEventListener('click', function() {
+        if (botao.style.backgroundColor === corEscolhida) {
+            certoErrado.textContent = 'CORRETA!';
+            header.style.backgroundColor = corEscolhida;
+            mudarCores(corEscolhida); // Muda todos os botões para a cor correta
+        } else {
+            certoErrado.textContent = 'TENTE NOVAMENTE!';
+            botao.style.backgroundColor = '#232323';
+        }
+    });
+});
 
-// Inicializar o jogo
-reiniciarJogo();
+// Configurar event listeners nos botões de modo
+modoBotoes.forEach(botao => {
+    botao.addEventListener('click', function() {
+        modoBotoes.forEach(btn => btn.classList.remove('selected'));
+        botao.classList.add('selected');
+        numCores = parseInt(botao.getAttribute('data-num'));
+        iniciarJogo();
+    });
+});
 
-// Adicionar evento ao botão "Jogar de Novo"
-jogarNovamente.addEventListener('click', reiniciarJogo);
+// Configurar o botão de jogar novamente
+jogarNovamenteBtn.addEventListener('click', iniciarJogo);
 
+// Iniciar o jogo pela primeira vez com o modo fácil selecionado
+modoBotoes.forEach(botao => {
+    if (botao.textContent === 'FÁCIL') {
+        botao.classList.add('selected');
+    }
+});
+iniciarJogo();
