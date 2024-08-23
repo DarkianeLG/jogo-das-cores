@@ -6,23 +6,29 @@
     box-sizing: border-box;
 }
 
-body {    
+body {
     background-color: #555;
     color: white;
+    font-family: Arial, sans-serif;
 }
 
 header {
-    background: #26828d;
-    padding: 80px; 
+    background-color: #26828d;
+    padding: 80px;
     padding-top: 10px;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .inicio {
     color: white;
-    font-family: Arial, sans-serif;
     font-size: 40px;
     text-align: center;
+}
+
+.cor {
+    text-align: center;
+    font-size: 35px;
+    margin-top: 50px;
 }
 
 .navegacao {
@@ -35,7 +41,6 @@ header {
 
 .navegacao button {
     border: none;
-    font-family: Arial, sans-serif;
     font-size: 20px;
     color: #26828d;
     background-color: white;
@@ -50,18 +55,24 @@ header {
     transform: scale(1.05);
 }
 
-main{
+.certo-errado {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh; 
+    height: 70vh;
     margin-right: 30px;
 }
 
 .cores {
     display: grid;
-    grid-template-columns: repeat(3, 100px); 
-    grid-gap: 80px; 
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 80px;
     justify-content: center;
     margin-top: 10px;
 }
@@ -69,11 +80,67 @@ main{
 .cores button {
     width: 150px;
     height: 150px;
-    border-radius: 15px; 
+    border-radius: 15px;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
 .cores button:hover {
     transform: scale(1.05);
+}
+
+@media (max-width: 1280px) {
+    .cores {
+        grid-template-columns: repeat(3, 120px);
+        grid-gap: 60px;
+    }
+
+    .cores button {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+
+@media (max-width: 425px) {
+    header {
+        padding: 40px;
+    }
+
+    .inicio {
+        font-size: 30px;
+    }
+
+    .cor {
+        font-size: 25px;
+        margin-top: 30px;
+    }
+
+    .navegacao {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .navegacao button {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    .certo-errado {
+        font-size: 20px;
+    }
+
+    main {
+        margin-right: 0;
+    }
+
+    .cores {
+        grid-template-columns: repeat(2, 100px);
+        grid-gap: 20px;
+    }
+
+    .cores button {
+        width: 100px;
+        height: 100px;
+    }
 }
