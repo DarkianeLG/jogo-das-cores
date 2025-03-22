@@ -16,10 +16,12 @@ Este é um jogo interativo onde o jogador deve adivinhar a cor correta com base 
 
 ## 💡 Como Jogar
 
-  1. Observe o código RGB exibido na tela.
-  2. Escolha uma das cores disponíveis.
-  3. Se acertar, o fundo do cabeçalho mudará para a cor correta.
-  4. Caso erre, tente novamente até acertar!
+1. Observe o código RGB exibido na tela.
+2. Clique em uma das cores para tentar adivinhar a correta.
+3. Se acertar, todas as cores mudam para a escolhida e o cabeçalho também.
+4. Se errar, a cor clicada desaparece e você pode tentar novamente.
+5. Clique em "Jogar de Novo" para reiniciar.
+6. Alterne entre os modos Fácil e Difícil para ajustar a dificuldade.
 
 ## Como Executar
 
